@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light Mode - Base Neutral Palette */
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 1rem;
+
+  /* Theme Modes - CSS Variables for dynamic usage */
+  --theme-life: 221 83% 53%;        /* Blue */
+  --theme-study: 35 92% 55%;        /* Amber/Orange */
+  --theme-money: 142 76% 36%;       /* Green */
+  
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+.dark {
+  /* Dark Mode - Palette */
+  --background: 222 84% 5%;
+  --foreground: 210 40% 96%;
+  --card: 222 84% 10%;
+  --card-foreground: 210 40% 96%;
+  --popover: 222 84% 10%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 222 84% 5%;
+  --secondary: 222 70% 20%;
+  --secondary-foreground: 210 40% 96%;
+  --muted: 222 70% 20%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 222 70% 20%;
+  --accent-foreground: 210 40% 96%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 222 84% 5%;
+  --border: 222 70% 20%;
+  --input: 222 70% 20%;
+  --ring: 221.2 83.2% 53.3%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* Custom Scrollbar for Chat */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.glass-panel {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+}

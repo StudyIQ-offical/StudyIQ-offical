@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'AI Coach App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  final List<String> modes = [
+    "AI Assistant",
+    "Homework Helper",
+    "Money Coach",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AI Coach App'),
+      ),
+      body: ListView.builder(
+        itemCount: modes.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(modes[index]),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatScreen(mode: modes[index]),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ChatScreen extends StatefulWidget {
+  final String mode;
+
+  ChatScreen({required this.mode});
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _controller = TextEditingController();
+  final List<String> messages = [];
+
+  void sendMessage(String message) async {
+    setState(() {
+      messages.add("You: $message");
+    });
+
+    // TODO: Call OpenAI API here
+    String aiResponse = "AI ($widget.mode) will reply here";
+
+    setState(() {
+      messages.add(aiResponse);
+    });
+
+    _controller.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.mode),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(messages[index]),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: "Type your message...",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () => sendMessage(_controller.text),
+                  child: Text("Send"),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
